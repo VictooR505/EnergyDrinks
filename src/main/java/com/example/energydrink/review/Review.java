@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "reviews")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +17,12 @@ public class Review {
     private Drink drink;
     private Reviewer reviewer;
     private LocalDate date;
-    private int rating;
+    private double rating;
     private String positive;
     private String negative;
     private Size size;
 
-    public Review(Long id, Drink drink, Reviewer reviewer, LocalDate date, int rating, String positive, String negative, Size size) {
+    public Review(Long id, Drink drink, Reviewer reviewer, LocalDate date, double rating, String positive, String negative, Size size) {
         this.id = id;
         this.drink = drink;
         this.reviewer = reviewer;
@@ -68,11 +68,11 @@ public class Review {
         this.date = date;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

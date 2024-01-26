@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public record ReviewUpdateDTO(
         Drink drink,
         LocalDate date,
-        int rating,
+        double rating,
         String positive,
         String negative) {
 }

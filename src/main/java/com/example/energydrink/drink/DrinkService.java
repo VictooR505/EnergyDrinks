@@ -1,5 +1,7 @@
 package com.example.energydrink.drink;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +12,11 @@ import java.util.stream.Collectors;
 public class DrinkService {
     private final DrinkRepository drinkRepository;
 
+    Logger logger = LoggerFactory.getLogger(DrinkService.class);
+
     public DrinkService(DrinkRepository drinkRepository) {
         this.drinkRepository = drinkRepository;
     }
-
-   /* public List<Drink> getAll(String sortBy, String sortOrder){
-        return drinkRepository.findAll(Sort.by(Sort.Direction.valueOf(sortOrder.toUpperCase()), sortBy));
-    }*/
 
     public Drink getDrink(Long id){
         return drinkRepository.findById(id).get();
@@ -40,8 +40,17 @@ public class DrinkService {
                                             String sortBy, String sortOrder){
         brand = brand.isEmpty() ? drinkRepository.getAllBrands() : brand;
         flavour = flavour.isEmpty() ? drinkRepository.getAllFlavours() : flavour;
+
+        if(sortBy.equals("name")){
+            Sort sort = Sort.by(
+                    Sort.Order.by("brand").with(Sort.Direction.valueOf(sortOrder.toUpperCase())),
+                    Sort.Order.by("name").with(Sort.Direction.valueOf(sortOrder.toUpperCase()))
+            );
+            return drinkRepository.findAll(brand, flavour, sugarMax, sugarMin, sort);
+        }
         return drinkRepository.findAll(brand, flavour, sugarMax, sugarMin, Sort.by(Sort.Direction.valueOf(sortOrder.toUpperCase()), sortBy));
     }
+
 
     public List<String> getAllBrands(){
         return drinkRepository.getAllBrands().stream().sorted().collect(Collectors.toList());

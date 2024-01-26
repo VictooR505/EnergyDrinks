@@ -15,21 +15,15 @@ public class DrinkController {
         this.drinkService = drinkService;
     }
 
-   /* @GetMapping
-    public List<Drink> getAll(@RequestParam(defaultValue = "id") String sortBy,
-                              @RequestParam(defaultValue = "ASC") String sortOrder){
-        return drinkService.getAll(sortBy, sortOrder);
-    }*/
-
-    @GetMapping("/filter")
-    public List<Drink> getAll(@RequestParam(required = false, defaultValue = "") List<String> brand,
-                                             @RequestParam(required = false, defaultValue = "") List<String> flavour,
-                                             @RequestParam(required = false, defaultValue = "75") float sugarMax,
-                                             @RequestParam(required = false, defaultValue = "0")  float sugarMin,
-                                             @RequestParam(required = false, defaultValue = "id") String sortBy,
-                                             @RequestParam(required = false,  defaultValue = "ASC") String sortOrder
+    @GetMapping()
+    public List<Drink> getAll(@RequestParam(required = false, defaultValue = "") List<String> brands,
+                              @RequestParam(required = false, defaultValue = "") List<String> flavours,
+                              @RequestParam(required = false, defaultValue = "75") float sugarMax,
+                              @RequestParam(required = false, defaultValue = "0")  float sugarMin,
+                              @RequestParam(required = false, defaultValue = "id") String sortBy,
+                              @RequestParam(required = false,  defaultValue = "ASC") String sortOrder
     ){
-        return drinkService.getAll(brand, flavour, sugarMax ,sugarMin, sortBy, sortOrder);
+        return drinkService.getAll(brands, flavours, sugarMax ,sugarMin, sortBy, sortOrder);
     }
 
     @GetMapping("/{id}")
